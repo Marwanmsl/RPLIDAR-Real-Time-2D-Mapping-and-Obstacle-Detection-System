@@ -4,7 +4,7 @@ from rplidar import RPLidar
 import math
 import tkinter as tk
 
-PORT_NAME = "COM8"
+PORT_NAME = "COM8"   #Change the communication port with your LIDAR port
 
 MAP_SIZE = 1200
 MAP_RESOLUTION = 20
