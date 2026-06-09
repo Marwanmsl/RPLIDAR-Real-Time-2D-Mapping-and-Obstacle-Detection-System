@@ -2,7 +2,11 @@
 
 ## Overview
 
-https://cloud.githubusercontent.com/assets/61601234//2bee1e88-8bc9-4a12-81b3-3e41fa98d30e.mp4
+
+
+https://github.com/user-attachments/assets/f6f21c39-3211-4163-a372-141f0bed24f1
+
+
 
 This project implements a real-time 2D environment mapping and obstacle detection system using an RPLIDAR sensor and Python. The system continuously collects LiDAR scan data, converts polar measurements into Cartesian coordinates, builds an occupancy map, identifies obstacles through clustering techniques, and displays the results in a full-screen graphical interface.
 
