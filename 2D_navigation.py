@@ -4,10 +4,6 @@ from rplidar import RPLidar
 import math
 import tkinter as tk
 
-# ==========================================
-# CONFIGURATION
-# ==========================================
-
 PORT_NAME = "COM8"
 
 MAP_SIZE = 1200
@@ -24,10 +20,6 @@ WARNING_DISTANCE = 1000
 
 WINDOW_NAME = "RPLIDAR 2D Mapping + Obstacle Detection"
 
-# ==========================================
-# SCREEN SIZE
-# ==========================================
-
 def get_screen_resolution():
 
     root = tk.Tk()
@@ -40,10 +32,6 @@ def get_screen_resolution():
 
     return width, height
 
-# ==========================================
-# MAP
-# ==========================================
-
 occupancy_map = np.zeros(
     (MAP_SIZE, MAP_SIZE),
     dtype=np.uint8
@@ -51,10 +39,6 @@ occupancy_map = np.zeros(
 
 CENTER_X = MAP_SIZE // 2
 CENTER_Y = MAP_SIZE // 2
-
-# ==========================================
-# POLAR -> MAP
-# ==========================================
 
 def polar_to_map(angle_deg, distance_mm):
 
@@ -67,10 +51,6 @@ def polar_to_map(angle_deg, distance_mm):
     py = int(CENTER_Y - y_mm / MAP_RESOLUTION)
 
     return px, py
-
-# ==========================================
-# GRID
-# ==========================================
 
 def draw_grid(img):
 
@@ -99,10 +79,6 @@ def draw_grid(img):
         (100, 100, 100),
         1
     )
-
-# ==========================================
-# OBSTACLE DETECTION
-# ==========================================
 
 def detect_obstacles(scan):
 
@@ -188,10 +164,6 @@ def detect_obstacles(scan):
 
     return obstacles
 
-# ==========================================
-# MAIN
-# ==========================================
-
 def main():
 
     screen_width, screen_height = get_screen_resolution()
@@ -228,10 +200,6 @@ def main():
             if not SHOW_TRAILS:
                 occupancy_map[:] = 0
 
-            # -----------------------------
-            # Draw Scan Points
-            # -----------------------------
-
             for quality, angle, distance in scan:
 
                 if distance < MIN_DISTANCE:
@@ -251,15 +219,7 @@ def main():
                 ):
                     occupancy_map[py, px] = 255
 
-            # -----------------------------
-            # Detect Obstacles
-            # -----------------------------
-
             obstacles = detect_obstacles(scan)
-
-            # -----------------------------
-            # Build Display
-            # -----------------------------
 
             display = cv2.cvtColor(
                 occupancy_map,
@@ -277,10 +237,6 @@ def main():
             )
 
             nearest_distance = 999999
-
-            # -----------------------------
-            # Draw Obstacles
-            # -----------------------------
 
             for obs in obstacles:
 
@@ -332,10 +288,6 @@ def main():
                     1
                 )
 
-            # -----------------------------
-            # HUD
-            # -----------------------------
-
             cv2.putText(
                 display,
                 f"Scans: {scan_count}",
@@ -377,10 +329,6 @@ def main():
                     (0, 0, 255),
                     3
                 )
-
-            # -----------------------------
-            # FULL SCREEN SCALING
-            # -----------------------------
 
             fullscreen_display = cv2.resize(
                 display,
@@ -429,10 +377,6 @@ def main():
         print(
             "Saved: rplidar_obstacle_map.png"
         )
-
-# ==========================================
-# START
-# ==========================================
 
 if __name__ == "__main__":
     main()
